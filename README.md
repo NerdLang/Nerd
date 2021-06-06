@@ -92,6 +92,12 @@ var _aConstObject =
 }
 ```
 
+## Include a module
+
+```
+var console = require("console");
+```
+
 # Concepts
 
 ## OOP
