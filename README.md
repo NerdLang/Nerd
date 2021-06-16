@@ -14,6 +14,15 @@ Once done, you can start to compile Nerd files.
 nerd myfile.nd --run
 ```
 
+You can generate some examples in your working directory with:
+```bash
+nerd --examples
+```
+To compile and run a program, use `--run`
+```bash
+nerd hello.nd --run
+```
+
 # Roadmap
 
 - Write the whole Nerd softwares in Nerd
