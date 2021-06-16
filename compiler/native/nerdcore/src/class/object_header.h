@@ -38,7 +38,7 @@ namespace NerdCore::Class
 		NerdCore::Type::object_t object;
 		NerdCore::Type::vector_p instance;
 		// Methods
-		inline NerdCore::Global::var Size() noexcept;
+		inline double Size() noexcept;
 		inline void Delete() noexcept;
 		inline void jsDelete(const std::string _key) noexcept;
 		
