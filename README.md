@@ -8,7 +8,7 @@ One of the objective is to have a versatile tool that we can interpret, compile,
 
 - Write the whole Nerd softwares in Nerd
 - Support Arduino, ESP32, STM32, Android, iOS, and more
-- Add all the needed standards module
+- Add all the needed standards modules
 - Add a module manager
 - Language
   * support multi variable assignment
