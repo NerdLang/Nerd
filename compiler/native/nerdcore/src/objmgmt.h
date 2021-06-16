@@ -148,6 +148,9 @@ double lengthof(NerdCore::Global::var _var)
 		case NerdCore::Enum::Type::Native:
 			return (double)((NerdCore::Class::Native*)_var.data.ptr)->length;
 		break;
+		default:
+			return 0;
+		break;
 	}
 	return 0;
 }
