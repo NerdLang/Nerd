@@ -47,7 +47,7 @@ namespace NerdCore::Class
 			delete this;
 		}
 	}
-	inline NerdCore::Global::var Array::Size() noexcept
+	inline double Array::Size() noexcept
 	{
 		return object.size();
 	}
