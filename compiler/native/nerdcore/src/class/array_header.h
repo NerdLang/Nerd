@@ -48,7 +48,7 @@ namespace NerdCore::Class
 		NerdCore::Type::vector_t value;
 		NerdCore::Type::object_t object;
 		// Methods
-		inline NerdCore::Global::var Size() noexcept;
+		inline double Size() noexcept;
 		inline void Delete() noexcept;
 		inline void jsDelete(const NerdCore::VAR _key) noexcept;
 		inline void* Copy() noexcept;
