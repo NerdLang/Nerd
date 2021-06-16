@@ -2,11 +2,15 @@
 
 Nerd Lang is an(other) attempt to have an efficient and yet simple language, where everything is a variable. Nerd has no superlative: it's not the fastest, it's not the best, it's not the easiest... It's Nerd.
 
-One of the objective is to have a versatile tool that we can interpret, compile, or transpile. Nerd tries to have one way to do something, we will see after how to do OOP, FP or other stuffs.
+One of our main objective is to have a versatile tool that we can interpret, compile, or transpile. Nerd tries to have one way to do something, we will see after how to do OOP, FP or other stuffs.
 
 # Getting started
 
-As this is a really alpha stage release, you need NodeJS to use NerdLang. Download and install NodeJS, and then install NerdLang with: npm i -g nerdlang.
+As this is a really alpha stage release, you need NodeJS to use NerdLang. Download and install NodeJS, and then install NerdLang with: 
+
+```bash
+npm i -g nerdlang
+```
 
 Once done, you can start to compile Nerd files.
 
@@ -29,6 +33,8 @@ nerd hello.nd --run
 - Support Arduino, ESP32, STM32, Android, iOS, and more
 - Add all the needed standards modules
 - Add a module manager
+- Add an interpreter
+- Add runtimes in different languages
 - Language
   * support multi variable assignment
   * switch statement
