@@ -4,6 +4,17 @@ Nerd Lang is an(other) attempt to have an efficient and yet simple language, whe
 
 One of the objective is to have a versatile tool that we can interpret, compile, or transpile. Nerd tries to have one way to do something, we will see after how to do OOP, FP or other stuffs.
 
+# Roadmap
+
+- Write the whole Nerd softwares in Nerd
+- Support Arduino, ESP32, STM32, Android, iOS, and more
+- Add all the needed standards module
+- Add a module manager
+- Language
+  * support multi variable assignment
+  * switch statement
+  * AST optimization with native type when possible
+
 # The Grammar / Syntax
 
 Nerd is close to C/C++ and JS syntax: brackets, comma, and classical expressions.
