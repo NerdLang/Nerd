@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
 	Copyright (c) 2021 NerdLang - Adrien THIERRY and contributors
 
