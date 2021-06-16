@@ -43,7 +43,7 @@ namespace NerdCore::Class
 		object = _obj;
 	}
 	// Methods
-	inline NerdCore::Global::var Object::Size() noexcept
+	inline double Object::Size() noexcept
 	{
 		return object.size();
 	}
