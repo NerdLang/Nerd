@@ -1,0 +1,4 @@
+include("test.h");
+var process = 1;
+
+return process;

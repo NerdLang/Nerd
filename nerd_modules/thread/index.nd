@@ -1,0 +1,51 @@
+// WIP
+
+{{
+	std::unordered_map<std::string, std::mutex> __Nerd_Thread_mutexList;
+	std::vector<std::thread> __Nerd_Thread_List;
+	
+	auto __Nerd_THREADED_CALL = [=](NerdCore::VAR _fn)
+	{
+		try
+		{
+			_fn();
+		}
+		catch(NerdCore::VAR e)
+		{
+			std::cout << e << std::endl;
+		}
+	};
+	
+}}
+
+var thread = {};
+
+thread.run = function(_cb)
+{
+	{{
+		if(_cb.type == NerdCore::Enum::Type::Function)
+		{
+			__Nerd_Thread_List.emplace_back(std::thread(__Nerd_THREADED_CALL, _cb));
+		}
+	}}
+};
+
+thread.lock = function(_key)
+{
+	{{
+		if(!_key) _key = "default";
+		std::lock_guard<std::mutex> guard(__Nerd_Thread_mutexList[(std::string)_key]);
+	}}
+};
+
+thread.waitForAll = function()
+{
+	{{
+		for(auto& _thread: __Nerd_Thread_List)
+		{
+			_thread.join();
+		}
+	}}
+};
+
+return thread;

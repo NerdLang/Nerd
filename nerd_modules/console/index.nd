@@ -1,0 +1,23 @@
+var console = {};
+
+console.log = function()
+{
+	var _args = arguments();
+	for(var i = 0; i < lengthof(_args); i++)
+	{
+		if(i > 0)
+		{
+			{{
+				std::cout << " ";
+			}}
+		}
+		{{
+			std::cout << _args[i];
+		}}
+	}
+	{{
+		std::cout << std::endl;
+	}}
+};
+
+return console;
