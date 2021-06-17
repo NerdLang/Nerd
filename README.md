@@ -12,7 +12,7 @@ As this is a really alpha stage release, you need NodeJS to use NerdLang. Downlo
 npm i -g nerdlang
 ```
 
-Once done, you can start to compile Nerd files.
+You also need GCC or Clang, with support of c++17. Once done, you can start to compile Nerd files.
 
 ```bash
 nerd myfile.nd --run
