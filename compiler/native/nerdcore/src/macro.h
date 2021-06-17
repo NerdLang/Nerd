@@ -74,6 +74,4 @@ return object.back().second;}
 
 #define arguments() new NerdCore::Class::FixedArray(__NERD_VARARGS, __NERD_VARLENGTH);
 
-#define __NERD_Multi_Line_Quote(...) #__VA_ARGS__
-
 /* END HELPERS */
