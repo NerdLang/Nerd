@@ -97,11 +97,11 @@ var STD =
 		
         if(preset == "none")
         {
-            return `${compiler} ${_stack} -std=c++17 ${_files} -O1 -s ${COMPILER.LIBS} -lpthread -o "${out}" ${_sysVNetLibs} ${_cliOption}`;
+            return `${compiler} ${_stack} -std=c++17 ${_files} -O1 -s ${COMPILER.LIBS} -pthread -o "${out}" ${_sysVNetLibs} ${_cliOption}`;
         }
         else if(preset == "size")
         {
-            return `${compiler} ${_stack} -std=c++17 ${_files} -lpthread -Os -fno-rtti -fno-stack-protector -fomit-frame-pointer -s ${COMPILER.LIBS} -o "${out}" ${_sysVNetLibs} ${_cliOption}`;
+            return `${compiler} ${_stack} -std=c++17 ${_files} -pthread -Os -fno-rtti -fno-stack-protector -fomit-frame-pointer -s ${COMPILER.LIBS} -o "${out}" ${_sysVNetLibs} ${_cliOption}`;
         }
         else
         {   
@@ -109,7 +109,7 @@ var STD =
             if(os.platform() == "darwin" || compiler.indexOf("clang") > -1) _opt += "3";
             else _opt += "fast";
 			
-			return `${compiler} ${_stack} -std=c++17 ${_files} ${_opt} -lpthread -s ${COMPILER.LIBS}  -o "${out}" ${_sysVNetLibs} ${_cliOption}`;
+			return `${compiler} ${_stack} -std=c++17 ${_files} ${_opt} -pthread -s ${COMPILER.LIBS}  -o "${out}" ${_sysVNetLibs} ${_cliOption}`;
         }
     },
 	write: function(_content, _in)
