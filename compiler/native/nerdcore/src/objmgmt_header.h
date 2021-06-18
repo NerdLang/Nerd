@@ -24,8 +24,9 @@
 NerdCore::VAR __NERD_delete(NerdCore::VAR _left, NerdCore::VAR _right);
 NerdCore::VAR __NERD_Object_Set(std::string _index, NerdCore::VAR _value, NerdCore::Type::object_t *_obj);
 NerdCore::VAR __NERD_Object_Set(NerdCore::VAR _index, NerdCore::VAR _value, NerdCore::VAR _array);
-std::string typeof(NerdCore::Global::var _var);
-double lengthof(NerdCore::Global::var _var);
+std::string type_of(NerdCore::Global::var _var);
+double length_of(NerdCore::Global::var _var);
+double size_of(NerdCore::Global::var _var);
 
 inline NerdCore::Global::var Object()
 {

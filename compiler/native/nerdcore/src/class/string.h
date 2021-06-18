@@ -68,7 +68,11 @@ namespace NerdCore::Class
 			res = std::stod(value, &end);
 		#endif
 		
+		#ifdef __NERD_ENV_ARDUINO
+		return 0;
+		#else
 		return end == value.size() ? res : std::numeric_limits<double>::quiet_NaN();
+		#endif
 	}
 	String::operator int() const noexcept
 	{
@@ -83,7 +87,11 @@ namespace NerdCore::Class
 			res = std::stoi(value, &end, 10);
 		#endif
 		
+		#ifdef __NERD_ENV_ARDUINO
+		return 0;
+		#else
 		return end == value.size() ? res : std::numeric_limits<int>::quiet_NaN();
+		#endif
 	}
 	String::operator long long() const noexcept
 	{
@@ -97,8 +105,12 @@ namespace NerdCore::Class
 		#else
 			res = std::stoll(value, &end, 10);
 		#endif
-
+		
+		#ifdef __NERD_ENV_ARDUINO
+		return 0;
+		#else
 		return end == value.size() ? res : std::numeric_limits<long long>::quiet_NaN();
+		#endif
 	}
 	String::operator std::string() const noexcept { return value; }
 	// Main operators

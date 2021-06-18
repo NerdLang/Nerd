@@ -1,0 +1,62 @@
+var high;
+var low;
+var input;
+var output;
+var led_builtin;
+
+{{
+	high = HIGH;
+	low = LOW;
+	input = INPUT;
+	output = OUTPUT;
+	led_builtin = LED_BUILTIN;
+}}
+
+var nectarDelayMS = function(_value)
+{ 
+	{{
+		delay((int)_value);
+	}}
+};
+
+var nectarDelay = function(_value)
+{ 
+	{{
+		delay((int)_value);
+	}}
+};
+
+var nectarDelaySeconds = function(_value)
+{ 
+	{{
+		delay((int)_value * 1000);
+	}}
+};
+
+var nectarPinMode = function(_pin, _mode)
+{ 
+	{{
+		pinMode((int)_pin, (int)_mode);
+	}}
+};
+
+var nectarDigitalWrite = function( _pin, _mode)
+{
+	{{
+		digitalWrite((int)_pin, (int)_mode);
+	}}
+};
+
+var arduino = 
+{
+	delay: nectarDelay,
+	pinMode: nectarPinMode,
+	digitalWrite: nectarDigitalWrite,
+	high: high,
+	low: low,
+	input: input,
+	output: output,
+	led_builtin: led_builtin
+};
+
+return arduino;

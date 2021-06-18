@@ -20,16 +20,27 @@
 	SOFTWARE.
 
 */
+#ifdef __NERD_ENV_ARDUINO
+	bool operator==(std::string_view sw, const char* c)
+	{
+		return sw == std::string_view(c);
+	}
 
-constexpr bool operator==(std::string_view sw, const char* c)
-{
-	return sw == std::string_view(c);
-}
+	bool operator!=(std::string_view sw, const char* c)
+	{
+		return sw != std::string_view(c);
+	}
+#else
+	constexpr bool operator==(std::string_view sw, const char* c)
+	{
+		return sw == std::string_view(c);
+	}
 
-constexpr bool operator!=(std::string_view sw, const char* c)
-{
-	return sw != std::string_view(c);
-}
+	constexpr bool operator!=(std::string_view sw, const char* c)
+	{
+		return sw != std::string_view(c);
+	}
+#endif
 
 NerdCore::VAR __NERD_Boolean_Result(NerdCore::VAR _v);
 std::string __NERD_DOUBLE_TO_STRING(double _var);

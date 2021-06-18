@@ -36,7 +36,6 @@ namespace NerdCore::Class
 		count_t counter = 1;
 		int length = 0;
 		void* value = nullptr;
-		NerdCore::Type::object_t object;
 		// Methods
 		inline void Delete() noexcept;
 		inline void* Copy() noexcept;

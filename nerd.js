@@ -34,6 +34,8 @@ global.execSync = child_process.execSync;
 global.PACKAGE = require(path.join(__dirname, "package.json"));
 global.VERSION = PACKAGE.version;
 
+global.extern = path.join(__dirname, "external");
+
 var parseCLI = require('./base/cli/cliParser.js');
 var coreHttp = require('./base/util/httpUtils.js');
 var getExt = require('./base/util/getExt.js');

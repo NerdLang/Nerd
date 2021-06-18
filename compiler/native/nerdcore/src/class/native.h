@@ -73,78 +73,23 @@ namespace NerdCore::Class
 	}
 	NerdCore::VAR &Native::operator[](NerdCore::VAR key)
 	{
-		#ifndef __NERD__OBJECT_VECTOR
-		return object[(std::string)key];
-		#else
-		for (auto & search : object)
-		{
-			if (((std::string)key).compare(search.first) == 0)
-			{
-				return search.second;
-			}
-		}
-
-		object.push_back(NerdCore::Type::pair_t((std::string)key, NerdCore::VAR()));
-		return object[object.size() - 1].second;
-		#endif
+		return NerdCore::Global::null;
 	}
 	
 	NerdCore::VAR &Native::operator[](int key)
 	{
-		#ifndef __NERD__OBJECT_VECTOR
-		return object[std::to_string(key)];
-		#else
-		std::string _str = std::to_string(key);
-		for (auto & search : object)
-		{
-			if (_str.compare(search.first) == 0)
-			{
-				return search.second;
-			}
-		}
-
-		object.push_back(NerdCore::Type::pair_t(_str, NerdCore::VAR()));
-		return object[object.size() - 1].second;
-		#endif
+		return NerdCore::Global::null;
 	}
 	
 	NerdCore::VAR &Native::operator[](double key)
 	{
-		#ifndef __NERD__OBJECT_VECTOR
-		return object[std::to_string(key)];
-		#else
-		std::string _str = std::to_string(key);
-		for (auto & search : object)
-		{
-			if (_str.compare(search.first) == 0)
-			{
-				return search.second;
-			}
-		}
-
-		object.push_back(NerdCore::Type::pair_t(_str, NerdCore::VAR()));
-		return object[object.size() - 1].second;
-		#endif
+		return NerdCore::Global::null;
 	}
 	
 	
 	NerdCore::VAR &Native::operator[](const char* key)
 	{
-		std::string str = key;
-		#ifndef __NERD__OBJECT_VECTOR
-		return object[str];
-		#else
-		for (auto & search : object)
-		{
-			if (str.compare(search.first) == 0)
-			{
-				return search.second;
-			}
-		}
-
-		object.push_back(NerdCore::Type::pair_t(str, NerdCore::VAR()));
-		return object[object.size() - 1].second;
-		#endif
+		return NerdCore::Global::null;
 	}
 	
 	// Comparation operators

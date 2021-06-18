@@ -115,12 +115,12 @@ NerdCore::VAR __NERD_Object_Set(NerdCore::VAR _index, NerdCore::VAR _value, Nerd
 
 /* typeof */
 const std::string _array[] = {"null", "boolean", "number", "string", "native", "native", "struct", "fixed_array", "array", "object", "function" };
-std::string typeof(NerdCore::Global::var _var)
+std::string type_of(NerdCore::Global::var _var)
 {
 	return _array[_var.type];
 }
 
-double lengthof(NerdCore::Global::var _var)
+double length_of(NerdCore::Global::var _var)
 {
 	switch( _var.type)
 	{
@@ -155,3 +155,7 @@ double lengthof(NerdCore::Global::var _var)
 	return 0;
 }
 
+double size_of(NerdCore::Global::var _var)
+{
+	return sizeof(_var);
+}
