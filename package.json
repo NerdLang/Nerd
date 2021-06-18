@@ -1,7 +1,7 @@
 {
   "name": "nerdlang",
-  "version": "0.0.4",
-  "description": "Nerd Lang. No VM. No Bytecode. No GC. Just native binaries.",
+  "version": "0.0.5",
+  "description": "NerdLang. Simple yet efficient.",
   "main": "nerd",
   "bin": {
     "nerd": "./nerd.js"
