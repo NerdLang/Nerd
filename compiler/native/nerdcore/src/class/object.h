@@ -47,8 +47,105 @@ namespace NerdCore::Class
 	{
 		return object.size();
 	}
+
+	inline void recursiveDeleteObject(NerdCore::Class::Object* obj, NerdCore::Class::Object* _main);
+	inline void recursiveDeleteArray(NerdCore::Class::Array* obj, NerdCore::Class::Object* _main);
+	inline void recursiveDeleteFixedArray(NerdCore::Class::FixedArray* obj, NerdCore::Class::Object* _main);
+
+	inline void recursiveDeleteObject(NerdCore::Class::Object* obj, NerdCore::Class::Object* _main)
+	{
+		for (auto& itr : obj->object) 
+		{
+			if(itr.second.type == NerdCore::Enum::Type::Object)
+			{
+				NerdCore::Class::Object* _obj = (NerdCore::Class::Object*)itr.second.data.ptr;
+				if(_main == _obj)
+				{
+					_obj->counter--;
+					itr.second.type = NerdCore::Enum::Type::Null;
+					itr.second.data.number = 0;
+				}
+				else
+				{
+					recursiveDeleteObject(_obj, _main);
+				}
+			}
+			else if(itr.second.type == NerdCore::Enum::Type::Array)
+			{
+				recursiveDeleteArray((NerdCore::Class::Array*)itr.second.data.ptr, _main);
+			}
+			else if(itr.second.type == NerdCore::Enum::Type::FixedArray)
+			{
+				recursiveDeleteFixedArray((NerdCore::Class::FixedArray*)itr.second.data.ptr, _main);
+			}
+		}
+	}
+
+	inline void recursiveDeleteArray(NerdCore::Class::Array* obj, NerdCore::Class::Object* _main)
+	{
+		int size = obj->Size();
+		for (int i = 0; i < size; i++) 
+		{
+			if(obj->value[i].type == NerdCore::Enum::Type::Object)
+			{
+				NerdCore::Class::Object* _obj = (NerdCore::Class::Object*)obj->value[i].data.ptr;
+				if(_main == _obj)
+				{
+					_obj->counter--;
+					obj->value[i].type = NerdCore::Enum::Type::Null;
+					obj->value[i].data.number = 0;
+				}
+				else
+				{
+					recursiveDeleteObject(_obj, _main);
+				}
+				
+			}
+			else if(obj->value[i].type == NerdCore::Enum::Type::Array)
+			{
+				recursiveDeleteArray((NerdCore::Class::Array*)obj->value[i].data.ptr, _main);
+			}
+			else if(obj->value[i].type == NerdCore::Enum::Type::FixedArray)
+			{
+				recursiveDeleteFixedArray((NerdCore::Class::FixedArray*)obj->value[i].data.ptr, _main);
+			}
+		}
+	}
+
+	inline void recursiveDeleteFixedArray(NerdCore::Class::FixedArray* obj, NerdCore::Class::Object* _main)
+	{
+		int size = obj->length;
+		for (int i = 0; i < size; i++) 
+		{
+			if(obj->value[i].type == NerdCore::Enum::Type::Object)
+			{
+				NerdCore::Class::Object* _obj = (NerdCore::Class::Object*)obj->value[i].data.ptr;
+				if(_main == _obj)
+				{
+					_obj->counter--;
+					obj->value[i].type = NerdCore::Enum::Type::Null;
+					obj->value[i].data.number = 0;
+				}
+				else
+				{
+					recursiveDeleteObject(_obj, _main);
+				}
+				
+			}
+			else if(obj->value[i].type == NerdCore::Enum::Type::Array)
+			{
+				recursiveDeleteArray((NerdCore::Class::Array*)obj->value[i].data.ptr, _main);
+			}
+			else if(obj->value[i].type == NerdCore::Enum::Type::FixedArray)
+			{
+				recursiveDeleteFixedArray((NerdCore::Class::FixedArray*)obj->value[i].data.ptr, _main);
+			}
+		}
+	}
+
 	inline void Object::Delete() noexcept
 	{
+		recursiveDeleteObject(this, this);
 		if (--counter == 0)
 		{
 			delete this;

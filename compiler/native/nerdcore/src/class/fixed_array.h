@@ -39,6 +39,11 @@ namespace NerdCore::Class
 		length = _length;
 		value = new NerdCore::VAR[(int)_length];
 	}
+	FixedArray::FixedArray(int _length)
+	{
+		length = _length;
+		value = new NerdCore::VAR[_length];
+	}
 	FixedArray::FixedArray(NerdCore::VAR* _var, int _length)
 	{
 		length = _length;
@@ -48,9 +53,106 @@ namespace NerdCore::Class
 			value[i] = _var[i];
 		}
 	}
+
+	inline void recursiveDeleteObject(NerdCore::Class::Object* obj, NerdCore::Class::FixedArray* _main);
+	inline void recursiveDeleteArray(NerdCore::Class::Array* obj, NerdCore::Class::FixedArray* _main);
+	inline void recursiveDeleteFixedArray(NerdCore::Class::FixedArray* obj, NerdCore::Class::FixedArray* _main);
+
+	inline void recursiveDeleteObject(NerdCore::Class::Object* obj, NerdCore::Class::FixedArray* _main)
+	{
+		for (auto& itr : obj->object) 
+		{
+			if(itr.second.type == NerdCore::Enum::Type::FixedArray)
+			{
+				NerdCore::Class::FixedArray* _obj = (NerdCore::Class::FixedArray*)itr.second.data.ptr;
+				if(_main == _obj)
+				{
+					_obj->counter--;
+					itr.second.type = NerdCore::Enum::Type::Null;
+					itr.second.data.number = 0;
+				}
+				else
+				{
+					recursiveDeleteFixedArray(_obj, _main);
+				}
+			}
+			else if(itr.second.type == NerdCore::Enum::Type::Array)
+			{
+				recursiveDeleteArray((NerdCore::Class::Array*)itr.second.data.ptr, _main);
+			}
+			else if(itr.second.type == NerdCore::Enum::Type::Object)
+			{
+				recursiveDeleteObject((NerdCore::Class::Object*)itr.second.data.ptr, _main);
+			}
+		}
+	}
+
+	inline void recursiveDeleteArray(NerdCore::Class::Array* obj, NerdCore::Class::FixedArray* _main)
+	{
+		int size = obj->Size();
+		for (int i = 0; i < size; i++) 
+		{
+			if(obj->value[i].type == NerdCore::Enum::Type::FixedArray)
+			{
+				NerdCore::Class::FixedArray* _obj = (NerdCore::Class::FixedArray*)obj->value[i].data.ptr;
+				if(_main == _obj)
+				{
+					_obj->counter--;
+					obj->value[i].type = NerdCore::Enum::Type::Null;
+					obj->value[i].data.number = 0;
+				}
+				else
+				{
+					recursiveDeleteFixedArray(_obj, _main);
+				}
+				
+			}
+			else if(obj->value[i].type == NerdCore::Enum::Type::Array)
+			{
+				recursiveDeleteArray((NerdCore::Class::Array*)obj->value[i].data.ptr, _main);
+			}
+			else if(obj->value[i].type == NerdCore::Enum::Type::Object)
+			{
+				recursiveDeleteObject((NerdCore::Class::Object*)obj->value[i].data.ptr, _main);
+			}
+		}
+	}
+
+	inline void recursiveDeleteFixedArray(NerdCore::Class::FixedArray* obj, NerdCore::Class::FixedArray* _main)
+	{
+		int size = obj->length;
+		for (int i = 0; i < size; i++) 
+		{
+			if(obj->value[i].type == NerdCore::Enum::Type::FixedArray)
+			{
+				NerdCore::Class::FixedArray* _obj = (NerdCore::Class::FixedArray*)obj->value[i].data.ptr;
+				if(_main == _obj)
+				{
+					_obj->counter--;
+					obj->value[i].type = NerdCore::Enum::Type::Null;
+					obj->value[i].data.number = 0;
+				}
+				else
+				{
+					recursiveDeleteFixedArray(_obj, _main);
+				}
+				
+			}
+			else if(obj->value[i].type == NerdCore::Enum::Type::Array)
+			{
+				recursiveDeleteArray((NerdCore::Class::Array*)obj->value[i].data.ptr, _main);
+			}
+			else if(obj->value[i].type == NerdCore::Enum::Type::Object)
+			{
+				recursiveDeleteObject((NerdCore::Class::Object*)obj->value[i].data.ptr, _main);
+			}
+		}
+	}
+
 	// Methods
 	inline void FixedArray::Delete() noexcept
 	{
+		recursiveDeleteFixedArray(this, this);
 		if (--counter == 0)
 		{
 			delete[] value;
@@ -132,7 +234,6 @@ namespace NerdCore::Class
 		return NerdCore::Global::null;
 	}
 	
-	#ifndef __NERD__OBJECT_VECTOR
 	NerdCore::VAR &FixedArray::operator[](NerdCore::VAR key)
 	{	
 		if (key.type == NerdCore::Enum::Type::Number)
@@ -152,60 +253,9 @@ namespace NerdCore::Class
 			}
 			return value[i];
 		}
-		
-		std::string _str = ((std::string)key);
-		NerdCore::Type::StringView _sview = _str;
-		
-		if(_sview.compare("length") == 0)
-		{
-			return length;
-		}
-		
-		NerdCore::VAR& _obj = object[_str];
-				
-		return _obj;
-	}
-	#else
-	NerdCore::VAR &FixedArray::operator[](NerdCore::VAR key)
-	{
-		if (key.type == NerdCore::Enum::Type::Number)
-		{
-			auto i = (int)key;
 			
-			if (i < 0)
-			{
-				return NerdCore::Global::null;
-			}
-			else 
-			{
-				if (i >= (int)length)
-				{
-					return NerdCore::Global::null;
-				}
-			}
-			return value[i];
-		}
-		
-		std::string _str = ((std::string)key);
-		NerdCore::Type::StringView _sview = _str;
-		
-		if(_sview.compare("length") == 0)
-		{
-			return length;
-		}
-		
-		for (auto & search : object)
-		{
-			if (_sview.compare(search.first) == 0)
-			{
-				return search.second;
-			}
-		}
-		
-		object.push_back(NerdCore::Type::pair_t(_str, NerdCore::Global::null));
-		return object[object.size() - 1].second;
+		return NerdCore::Global::null;
 	}
-	#endif
 	
 	NerdCore::VAR &FixedArray::operator[](int key)
 	{
@@ -239,43 +289,10 @@ namespace NerdCore::Class
 		return value[(int)key];
 	}
 	
-	#ifndef __NERD__OBJECT_VECTOR
 	NerdCore::VAR &FixedArray::operator[](const char* key)
 	{		
-		std::string _str = key;
-		NerdCore::Type::StringView _sview = _str;
-		
-		if(_sview.compare("length") == 0)
-		{
-			return length;
-		}
-		
-		NerdCore::VAR& _obj = object[_str];
-		return _obj; 
+		return NerdCore::Global::null;
 	}
-	#else
-	NerdCore::VAR &FixedArray::operator[](const char* key)
-	{
-		std::string _str = key;
-		NerdCore::Type::StringView _sview = _str;
-		
-		if(_sview.compare("length") == 0)
-		{
-			return length;
-		}
-		
-		for (auto & search : object)
-		{
-			if (_sview.compare(search.first) == 0)
-			{
-				return search.second;
-			}
-		}
-
-		object.push_back(NerdCore::Type::pair_t(_str, NerdCore::Global::null));
-		return object[object.size() - 1].second;
-	}
-	#endif
 	
 	// Comparation operators
 	FixedArray FixedArray::operator!() const 

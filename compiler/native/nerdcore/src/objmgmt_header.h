@@ -26,3 +26,28 @@ NerdCore::VAR __NERD_Object_Set(std::string _index, NerdCore::VAR _value, NerdCo
 NerdCore::VAR __NERD_Object_Set(NerdCore::VAR _index, NerdCore::VAR _value, NerdCore::VAR _array);
 std::string typeof(NerdCore::Global::var _var);
 double lengthof(NerdCore::Global::var _var);
+
+inline NerdCore::Global::var Object()
+{
+	return new NerdCore::Class::Object();
+}
+
+inline NerdCore::Global::var Array()
+{
+	return new NerdCore::Class::Array();
+}
+
+inline NerdCore::Global::var FixedArray()
+{
+	return new NerdCore::Class::FixedArray();
+}
+
+inline NerdCore::Global::var FixedArray(NerdCore::Global::var _length)
+{
+	return new NerdCore::Class::FixedArray(_length);
+}
+
+inline NerdCore::Global::var FixedArray(int _length)
+{
+	return new NerdCore::Class::FixedArray(_length);
+}

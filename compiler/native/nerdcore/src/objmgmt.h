@@ -154,3 +154,4 @@ double lengthof(NerdCore::Global::var _var)
 	}
 	return 0;
 }
+

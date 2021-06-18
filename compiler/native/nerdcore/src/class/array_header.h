@@ -44,9 +44,7 @@ namespace NerdCore::Class
 		
 		// Properties
 		count_t counter = 0;
-		NerdCore::VAR length;
 		NerdCore::Type::vector_t value;
-		NerdCore::Type::object_t object;
 		// Methods
 		inline double Size() noexcept;
 		inline void Delete() noexcept;

@@ -32,7 +32,10 @@ namespace NerdCore
 
 	VAR::~VAR()
 	{
-		if(type > NerdCore::Enum::Type::Number) ((NerdCore::Class::Base*)data.ptr)->Delete();
+		if(type > NerdCore::Enum::Type::Number)
+		{
+			((NerdCore::Class::Base*)data.ptr)->Delete();
+		}
 	}
 	
 	/*** COPY ***/
@@ -240,6 +243,11 @@ namespace NerdCore
 	/*** OPERATOR ***/
 	void VAR::operator=(const VAR &_v)
 	{
+		if(this == &_v)
+		{
+			return;
+		}
+		
 		if(type > NerdCore::Enum::Type::Number) 
 		{
 			((NerdCore::Class::Base*)data.ptr)->Delete();

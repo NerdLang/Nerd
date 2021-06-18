@@ -35,6 +35,7 @@ namespace NerdCore::Class
 		Object(NerdCore::Type::object_t _obj);
 		// Properties
 		count_t counter = 0;
+		bool deleted = false;
 		NerdCore::Type::object_t object;
 		NerdCore::Type::vector_p instance;
 		// Methods

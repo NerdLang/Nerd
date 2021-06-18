@@ -32,12 +32,12 @@ namespace NerdCore::Class
 		// Constructors
 		FixedArray();
 		FixedArray(NerdCore::VAR length);
+		FixedArray(int length);
 		FixedArray(NerdCore::VAR* value, int length);
 		// Properties
 		count_t counter = 0;
 		NerdCore::VAR length;
 		NerdCore::VAR* value;
-		NerdCore::Type::object_t object;
 		// Methods
 		inline void Delete() noexcept;
 		inline void* Copy() noexcept;
