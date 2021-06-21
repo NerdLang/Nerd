@@ -74,8 +74,7 @@ global.CONFIG = {};
 
 
 var ACTION = "build";
-if(CLI.cli["--install_external"]) ACTION = "installExternal";
-else if(CLI.cli["--help"] || CLI.cli["-h"]) ACTION = "help";
+if(CLI.cli["--help"] || CLI.cli["-h"]) ACTION = "help";
 else if(CLI.cli["--example"] || CLI.cli["--examples"]) ACTION = "example";
 else if(CLI.cli["--version"] || CLI.cli["-v"]) ACTION = "version";
 else if(CLI.cli["--project"]) ACTION = "showproject";

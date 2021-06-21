@@ -145,7 +145,7 @@ namespace NerdCore::Class
 
 	inline void Object::Delete() noexcept
 	{
-		recursiveDeleteObject(this, this);
+		//recursiveDeleteObject(this, this);
 		if (--counter == 0)
 		{
 			delete this;

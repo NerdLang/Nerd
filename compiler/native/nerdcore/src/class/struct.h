@@ -59,15 +59,27 @@ namespace NerdCore::Class
 	Struct::operator bool() const noexcept { return true; }
 	Struct::operator double() const noexcept
 	{
+		#ifdef __NERD_ENV_ARDUINO
+		return 0;
+		#else
 		return std::numeric_limits<double>::quiet_NaN();
+		#endif
 	}
 	Struct::operator int() const noexcept
 	{
+		#ifdef __NERD_ENV_ARDUINO
+		return 0;
+		#else
 		return std::numeric_limits<int>::quiet_NaN();
+		#endif
 	}
 	Struct::operator long long() const noexcept
 	{
+		#ifdef __NERD_ENV_ARDUINO
+		return 0;
+		#else
 		return std::numeric_limits<long long>::quiet_NaN();
+		#endif
 	}
 	Struct::operator std::string() const noexcept
 	{

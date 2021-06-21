@@ -32,25 +32,38 @@ namespace NerdCore::Class
 	{
 		
 	private:
-		void internalDelete(std::true_type)
+		inline void internalDelete()
 		{
-			if((*this)["__NERD_On_Destroy"]) (*this)["__NERD_On_Destroy"]();
-			if(std::is_pointer<T>::value) delete value;
-		}
-		void internalDelete(std::false_type)
-		{
-			if((*this)["__NERD_On_Destroy"]) (*this)["__NERD_On_Destroy"]();
+			if(is_ptr) delete value;
 		}
 	public:
 		// Constructors
-		bool is_ptr = 0;
+		bool is_ptr = true;
 		int length = 0;
-		const char* info;
+		std::string type;
 		NativeTPL(T val)
 		{
-			is_ptr = std::is_pointer<T>::value;
-			info = typeid(T).name();
+			is_ptr = true;
 			value = val;
+			type = "undef";
+		}
+		NativeTPL(T val, const char str[])
+		{
+			is_ptr = true;
+			type = str;
+			value = val;
+		}
+		NativeTPL(T val, bool isPtr)
+		{
+			is_ptr = isPtr;
+			value = val;
+			type = "undef";
+		}
+		NativeTPL(T val, const char str[], bool isPtr)
+		{
+			is_ptr = isPtr;
+			value = val;
+			type = str;
 		}
 		// Properties
 		count_t counter = 1;
@@ -62,7 +75,7 @@ namespace NerdCore::Class
 		{
 			if (--counter == 0)
 			{
-				internalDelete(std::is_pointer<T>());
+				internalDelete();
 				delete this;
 			}
 		}
@@ -76,6 +89,8 @@ namespace NerdCore::Class
 		template<typename Cast>
 		const inline T operator()(Cast& c) const
 		{
+			static_assert(std::is_same<decltype(c), T>::value, "Casting must be same as NativeType");
+			/*
 			if(std::string(typeid(Cast).name()).compare(info) == 0)
 			{
 				return value;
@@ -84,7 +99,8 @@ namespace NerdCore::Class
 			{
 				throw(__NERD_Throw_Error("Invalid native type casting"));
 			}
-			
+			*/
+			return value;
 		}
 		
 		inline T operator()() const
@@ -95,19 +111,31 @@ namespace NerdCore::Class
 		operator bool() const noexcept { return true; }
 		operator double() const noexcept
 		{
+			#ifdef __NERD_ENV_ARDUINO
+			return 0;
+			#else
 			return std::numeric_limits<double>::quiet_NaN();
+			#endif
 		}
 		operator int() const noexcept
 		{
+			#ifdef __NERD_ENV_ARDUINO
+			return 0;
+			#else
 			return std::numeric_limits<int>::quiet_NaN();
+			#endif
 		}
 		operator long long() const noexcept
 		{
+			#ifdef __NERD_ENV_ARDUINO
+			return 0;
+			#else
 			return std::numeric_limits<long long>::quiet_NaN();
+			#endif
 		}
 		operator std::string() const noexcept
 		{
-			return std::string("[native ") +  std::string(typeid(T).name()) +  std::string("]");
+			return std::string("[native ") +  type +  std::string("]");
 		}
 		
 		// Main operators
@@ -117,78 +145,23 @@ namespace NerdCore::Class
 		}
 		NerdCore::VAR &operator[](NerdCore::VAR key)
 		{
-			#ifndef __NERD__OBJECT_VECTOR
-			return object[(std::string)key];
-			#else
-			for (auto & search : object)
-			{
-				if (((std::string)key).compare(search.first) == 0)
-				{
-					return search.second;
-				}
-			}
-
-			object.push_back(NerdCore::Type::pair_t((std::string)key, NerdCore::VAR()));
-			return object[object.size() - 1].second;
-			#endif
+			return NerdCore::Global::null;
 		}
 		
 		NerdCore::VAR &operator[](int key)
 		{
-			#ifndef __NERD__OBJECT_VECTOR
-			return object[std::to_string(key)];
-			#else
-			std::string _str = std::to_string(key);
-			for (auto & search : object)
-			{
-				if (_str.compare(search.first) == 0)
-				{
-					return search.second;
-				}
-			}
-
-			object.push_back(NerdCore::Type::pair_t(_str, NerdCore::VAR()));
-			return object[object.size() - 1].second;
-			#endif
+			return NerdCore::Global::null;
 		}
 		
 		NerdCore::VAR &operator[](double key)
 		{
-			#ifndef __NERD__OBJECT_VECTOR
-			return object[std::to_string(key)];
-			#else
-			std::string _str = std::to_string(key);
-			for (auto & search : object)
-			{
-				if (_str.compare(search.first) == 0)
-				{
-					return search.second;
-				}
-			}
-
-			object.push_back(NerdCore::Type::pair_t(_str, NerdCore::VAR()));
-			return object[object.size() - 1].second;
-			#endif
+			return NerdCore::Global::null;
 		}
 		
 		
 		NerdCore::VAR &operator[](const char* key)
 		{
-			std::string str = key;
-			#ifndef __NERD__OBJECT_VECTOR
-			return object[str];
-			#else
-			for (auto & search : object)
-			{
-				if (str.compare(search.first) == 0)
-				{
-					return search.second;
-				}
-			}
-
-			object.push_back(NerdCore::Type::pair_t(str, NerdCore::VAR()));
-			return object[object.size() - 1].second;
-			#endif
+			return NerdCore::Global::null;
 		}
 		
 		// Comparation operators

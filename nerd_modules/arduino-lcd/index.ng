@@ -1,0 +1,41 @@
+include("lib/LiquidCrystal.h");
+
+var _lcd = function(rs, en, d4, d5, d6, d7)
+{
+	var object = {};
+	{{
+		var lcdNative = new NerdCore::Class::NativeTPL<LiquidCrystal*>(new LiquidCrystal((int)rs, (int)en, (int)d4, (int)d5, (int)d6, (int)d7), "");
+	}}
+	
+	object.begin = function(col, row)
+	{
+		{{
+			__NERD_Native_Ptr(lcdNative, LiquidCrystal*)->begin((int)col, (int)row);
+		}}
+	};
+	
+	object.print = function(text)
+	{
+		{{
+			__NERD_Native_Ptr(lcdNative, LiquidCrystal*)->print(((std::string)text).c_str());
+		}}
+	};
+	
+	object.setCursor = function(col, row)
+	{
+		{{
+			__NERD_Native_Ptr(lcdNative, LiquidCrystal*)->setCursor((int)col, (int)row);
+		}}
+	};
+	
+	object.clear = function()
+	{
+		{{
+			__NERD_Native_Ptr(lcdNative, LiquidCrystal*)->clear();
+		}}
+	};
+
+	return object;
+};
+
+return _lcd;

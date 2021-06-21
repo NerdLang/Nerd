@@ -69,14 +69,12 @@ namespace NerdCore
 		VAR(NerdCore::Enum::Type _type, void *_value, VAR _this);
 		VAR(std::function<VAR(NerdCore::VAR*, int)> &_value);
 		
-		
 		template<typename T>
 		VAR(NerdCore::Class::NativeTPL<T>* _value)
 		{
 			this->type = NerdCore::Enum::Type::NativeTPL;
 			data.ptr = _value;
 		};
-
 		
 		template <typename T>
 		T toNative (T _type)
@@ -103,13 +101,28 @@ namespace NerdCore
 			}
 			else
 			{
-		#ifndef __NERD_NO_EXCEPT
+				#ifndef __NERD_NO_EXCEPT
 				throw VAR("TypeError: Object is not a Native object");
-		#endif
+				#endif
 				exit(1);
 			} 
 		}
 		
+		template <typename T>
+		T Ptr ()
+		{
+			if(type == NerdCore::Enum::Type::NativeTPL)
+			{
+				return (NerdCore::Class::NativeTPL<T>*)data.ptr;
+			}
+			else
+			{
+				#ifndef __NERD_NO_EXCEPT
+				throw VAR("TypeError: Object is not a Native object");
+				#endif
+				exit(1);
+			} 
+		}
 		
 		template <class... Args>
 		VAR operator() (Args... args) const

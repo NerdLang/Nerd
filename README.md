@@ -15,7 +15,7 @@ npm i -g nerdlang
 You also need GCC or Clang, with support of c++17. Once done, you can start to compile Nerd files.
 
 ```bash
-nerd myfile.nd --run
+nerd myfile.ng --run
 ```
 
 You can generate some examples in your working directory with:
@@ -24,7 +24,7 @@ nerd --examples
 ```
 To compile and run a program, use `--run`
 ```bash
-nerd hello.nd --run
+nerd hello.ng --run
 ```
 
 # Roadmap

@@ -41,11 +41,11 @@ var ARDUINO =
 		
 	  if(!target || !OPTIONS[target])
 	  {
-		  console.log("[!] No target selected, switching to 'uno'");
+		  console.log("[!] No target or bad target selected, switching to 'uno'");
 		  target = "uno";
 	  }
 	  var _cli = `${compiler} ${OPTIONS[target].preset} -D__NERD__OBJECT_VECTOR -DARDUINO_ARCH_AVR -w -Os -fno-exceptions -fno-rtti -fno-stack-protector -fomit-frame-pointer -ffunction-sections -fdata-sections -Wl,--gc-sections \
-	  -I ${extern}/avr -I ${extern}/arduino/avr/variants/${OPTIONS[target].variant}/ -I ${extern}/arduino/avr/cores/arduino  -I ${extern}/avr/include -I ${extern}/stlarduino ${extern}/stlarduino/ios.cpp  ${extern}/arduino/avr/cores/arduino/abi.cpp ${extern}/stlarduino/new*.cpp ${extern}/stlarduino/char_traits.cpp ${extern}/stlarduino/del*.cpp ${extern}/stlarduino/stdexcept.cpp ${extern}/stlarduino/func_exception.cpp ${extern}/stlarduino/ostream_helpers.cpp -fno-threadsafe-statics -lm ${COMPILER.LIBS} -o ${out} ${_in} ${_cliOption}`;
+	  -I ${extern}/arduino/avr -I ${extern}/arduino/avr/variants/${OPTIONS[target].variant}/ -I ${extern}/arduino/avr/cores/arduino  -I ${extern}/arduino/stlarduino ${extern}/arduino/stlarduino/ios.cpp  ${extern}/arduino/avr/cores/arduino/abi.cpp ${extern}/arduino/stlarduino/new*.cpp ${extern}/arduino/stlarduino/char_traits.cpp ${extern}/arduino/stlarduino/del*.cpp ${extern}/arduino/stlarduino/stdexcept.cpp ${extern}/arduino/stlarduino/func_exception.cpp ${extern}/arduino/stlarduino/ostream_helpers.cpp -fno-threadsafe-statics -lm ${COMPILER.LIBS} -o ${out} ${_in} ${_cliOption}`;
 	  
  	  if(!OPT.elf) _cli += `&& avr-objcopy -O ihex -R .eeprom ${out}`;
 	if(OPT.cli) console.log("[*]" + _cli);

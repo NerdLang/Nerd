@@ -173,7 +173,11 @@ namespace NerdCore::Class
 		}
 		else
 		{
+			#ifdef __NERD_ENV_ARDUINO
+			return 0;
+			#else
 			return std::numeric_limits<double>::quiet_NaN();
+			#endif
 		}
 	}
 	Array::operator int() const noexcept
@@ -184,7 +188,11 @@ namespace NerdCore::Class
 		}
 		else
 		{
+			#ifdef __NERD_ENV_ARDUINO
+			return 0;
+			#else
 			return std::numeric_limits<int>::quiet_NaN();
+			#endif
 		}
 	}
 	Array::operator long long() const noexcept
@@ -195,7 +203,11 @@ namespace NerdCore::Class
 		}
 		else
 		{
+			#ifdef __NERD_ENV_ARDUINO
+			return 0;
+			#else
 			return std::numeric_limits<long long>::quiet_NaN();
+			#endif
 		}
 	}
 	Array::operator std::string() const noexcept

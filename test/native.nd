@@ -1,8 +1,0 @@
-var _cli = arguments();
-
-for(var i = 0; i < lengthof(_cli); i++)
-{
-	{{
-		std::cout << i << " : " << _cli[i] << " - " << &_cli[i] << std::endl;
-	}}
-}

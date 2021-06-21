@@ -51,27 +51,7 @@
 #define __NERD_CreateMethodToClass(_name, _fn) __NERD_Object_Set(_name, __NERD_Create_Var_Scoped_Anon( return _fn(__NERD_VARARGS, __NERD_VARLENGTH); ), &object);
 #define __NERD_NEW(_fn) ((NerdCore::Class::Function*)_fn.data.ptr)->New
 #define __NERD_Access_Struct(_exp, _name) (*(_name*)((NerdCore::Class::Struct*)_exp.data.ptr)->value)
-
-#ifndef __NERD__OBJECT_VECTOR
-#define __NERD_Method_Lazy_Loader(_name, _fn) \
-if(_sview.compare(_name) == 0) { \
-object[_str] = __NERD_Create_Var_Scoped_Anon( return _fn(__NERD_VARARGS, __NERD_VARLENGTH); ); \
-return object[_str];}
-#define __NERD_Object_Lazy_Loader(_name) \
-if(_sview.compare(_name) == 0) { \
-object[_str] = new NerdCore::Class::Object(); \
-return object[_str];}
-#else
-#define __NERD_Method_Lazy_Loader(_name, _fn) \
-if(_sview.compare(_name) == 0) { \
-object.push_back(NerdCore::Type::pair_t(_str, __NERD_Create_Var_Scoped_Anon( return _fn(__NERD_VARARGS, __NERD_VARLENGTH); ))); \
-return object.back().second;}
-#define __NERD_Object_Lazy_Loader(_name) \
-if(_sview.compare(_name) == 0) { \
-object.push_back(NerdCore::Type::pair_t(_str, new NerdCore::Class::Object())); \
-return object.back().second;}
-#endif
-
 #define arguments() new NerdCore::Class::FixedArray(__NERD_VARARGS, __NERD_VARLENGTH);
+#define __NERD_Native_Ptr(_var, _type) ((_type)((NerdCore::Class::NativeTPL<_type>*)_var.data.ptr)->value)
 
 /* END HELPERS */
