@@ -12,7 +12,10 @@ As this is a really alpha stage release, you need NodeJS to use NerdLang. Downlo
 npm i -g nerdlang
 ```
 
-You also need GCC or Clang, with support of c++17. Once done, you can start to compile Nerd files.
+You also need GCC or Clang, with support of c++17. Once done, you can start to compile Nerd files. For Arduino, you need avr-gcc in order to compile the firmware, you can get it here for Windows: https://blog.zakkemble.net/avr-gcc-builds/ 
+To target Wasm, you need Emscripten: https://emscripten.org/
+
+Then, you can compile your first file:
 
 ```bash
 nerd myfile.ng --run
