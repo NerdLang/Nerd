@@ -1,0 +1,240 @@
+/*
+	Copyright (c) 2021 NerdLang - Adrien THIERRY and contributors
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
+
+*/
+ include("<App.h>");
+ 
+ var http = {};
+ var console = require("console");
+
+ http.createServer = function(_cb)
+ {
+	{{
+		var uws = new NerdCore::Class::NativeTPL<uWS::App*>(new uWS::App());
+	}}
+	var app = {};
+	
+	app.listen = function(_port, _listenCB)
+	{
+		{{
+			__NERD_Native_Ptr(uws, uWS::App*)->listen((int)_port, [=](auto *listenSocket)
+			{
+				if (listenSocket) 
+				{
+					if(_listenCB)
+					{
+						_listenCB();
+					}
+
+					auto uwsGetCB = [=](auto *resUWS, auto *reqUWS) 
+					{
+						var _req = Object();
+						var _res = Object();
+
+						_req["getMethod"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							return reqUWS->getMethod();
+						});
+						
+						_req["getHeader"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg = __NERD_VARARGS[0];
+							}
+							return reqUWS->getHeader((std::string)arg);
+						});
+						
+						_req["getUrl"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							return reqUWS->getUrl();
+						});
+						
+						_res["setStatus"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg = __NERD_VARARGS[0];
+							}
+							resUWS->writeStatus((std::string)arg);
+							return NerdCore::Global::null;
+						});
+						
+						_res["setHeader"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg1;
+							var arg2;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg1 = __NERD_VARARGS[0];
+							}
+							if(__NERD_VARLENGTH > 1)
+							{
+								arg2 = __NERD_VARARGS[1];
+							}
+							resUWS->writeHeader((std::string)arg1, (std::string)arg2);
+							return NerdCore::Global::null;
+						});
+
+						_res["write"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg = __NERD_VARARGS[0];
+							}
+							
+							resUWS->write((std::string)arg);
+							return NerdCore::Global::null;
+						});
+
+						_res["end"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg = __NERD_VARARGS[0];
+							}
+							
+							resUWS->end((std::string)arg);
+							return NerdCore::Global::null;
+						});
+											
+						_cb(_req, _res);
+					};
+					
+					auto uwsDataCB = [=](auto *resUWS, auto *reqUWS) 
+					{
+						var _req = Object();
+						var _res = Object();
+
+						_req["getMethod"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							return reqUWS->getMethod();
+						});
+						
+						_req["getHeader"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg = __NERD_VARARGS[0];
+							}
+							return reqUWS->getHeader((std::string)arg);
+						});
+						
+						_req["getUrl"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							return reqUWS->getUrl();
+						});
+						
+						_res["setStatus"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var _args = arguments();
+							resUWS->writeStatus((std::string)_args[0]);
+							return NerdCore::Global::null;
+						});
+						
+						_res["setHeader"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg1;
+							var arg2;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg1 = __NERD_VARARGS[0];
+							}
+							if(__NERD_VARLENGTH > 1)
+							{
+								arg2 = __NERD_VARARGS[1];
+							}
+							resUWS->writeHeader((std::string)arg1, (std::string)arg2);
+							return NerdCore::Global::null;
+						});
+
+						_res["write"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg = __NERD_VARARGS[0];
+							}
+							
+							resUWS->write((std::string)arg);
+							return NerdCore::Global::null;
+						});
+
+						_res["end"] = __NERD_Create_Var_Scoped_Copy_Anon(
+						{
+							var arg;
+							if(__NERD_VARLENGTH > 0)
+							{
+								arg = __NERD_VARARGS[0];
+							}
+							
+							resUWS->end((std::string)arg);
+							return NerdCore::Global::null;
+						});
+						
+						resUWS->onData([=](auto chunk, bool isLast) 
+						{
+							if(_req["onData"])
+							{
+								_req["onData"](chunk, isLast);
+							}
+						});
+						
+						resUWS->onAborted([=]() 
+						{
+							if(_req["onAborted"])
+							{
+								_req["onAborder"]();
+							}
+							else 
+							{
+								resUWS->tryEnd("");
+							}
+						});
+						
+						_cb(_req, _res);
+					};
+
+					__NERD_Native_Ptr(uws, uWS::App*)->get("/*", uwsGetCB);
+					__NERD_Native_Ptr(uws, uWS::App*)->options("/*", uwsGetCB);
+					__NERD_Native_Ptr(uws, uWS::App*)->del("/*", uwsGetCB);
+					__NERD_Native_Ptr(uws, uWS::App*)->head("/*", uwsGetCB);
+					
+					__NERD_Native_Ptr(uws, uWS::App*)->post("/*", uwsDataCB);
+					__NERD_Native_Ptr(uws, uWS::App*)->put("/*", uwsDataCB);
+					__NERD_Native_Ptr(uws, uWS::App*)->patch("/*", uwsDataCB);
+					__NERD_Native_Ptr(uws, uWS::App*)->connect("/*", uwsDataCB);
+					
+					__NERD_Native_Ptr(uws, uWS::App*)->run();
+				}
+			});
+		}}
+	};
+ 
+	return app;
+ };
+ 
+ return http;
