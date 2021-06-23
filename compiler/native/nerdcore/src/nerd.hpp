@@ -91,7 +91,5 @@ namespace NerdCore
 #include "this_header.h"
 #include "class/number_header.h"
 #include "objmgmt_header.h"
-#include "event_header.h"
 #include "operator_header.h"
-#include "std_global_js_header.h"
 #include "stdfn_header.h"

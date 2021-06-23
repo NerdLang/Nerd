@@ -30,8 +30,6 @@
 #include "class/number.h"
 #include "var.h"
 #include "objmgmt.h"
-#include "event.h"
 #include "classes.h"
 #include "operator.h"
-#include "std_global_js.h"
 #include "stdfn.h"
