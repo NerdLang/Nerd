@@ -164,28 +164,7 @@ namespace NerdCore
 		/// Arithmetic operators
 		VAR operator+(const VAR &_v1);
 		VAR operator+(const char _v1[]);
-		//inline VAR& operator+=(const VAR &_v1);
-		inline VAR& operator+=(const VAR &_v1)
-		{
-			if(type < NerdCore::Enum::Type::String)
-			{
-				data.number += _v1.data.number;
-			}
-			else if(type == NerdCore::Enum::Type::String)
-			{
-				//((NerdCore::Class::String*)data.ptr)->value += (std::string)_v1;
-			}
-			else 
-			{
-				/*
-				std::string _s = (std::string)*this;
-				type = NerdCore::Enum::Type::String;
-				data.ptr = new NerdCore::Class::String("");
-				((NerdCore::Class::String*)data.ptr)->value += _s + (std::string)_v1;
-				*/
-			}
-			return *this;
-		}
+		VAR& operator+=(const VAR &_v1);
 		VAR operator-(const VAR &_v1);
 		VAR& operator-=(const VAR &_v1);
 		VAR operator*(const VAR &_v1);

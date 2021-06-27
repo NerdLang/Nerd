@@ -15,9 +15,10 @@
   "homepage": "https://github.com/NerdLang/Nerd#readme",
   "keywords":
   [
-    "Nerd",
-    "Arduino",
-	"LCD"
+    "nerd",
+    "nerdlang",
+    "arduino",
+	"lcd"
   ],
   "license": "MIT",
   "licenses": [

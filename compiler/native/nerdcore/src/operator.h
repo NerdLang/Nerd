@@ -415,7 +415,7 @@ NerdCore::VAR __NERD_Object_Keys(NerdCore::VAR _var)
 		int _j = (*_arr).size();
 		for (int _i = 0; _i < _j; _i++)
 		{
-			_res["push"](std::to_string(_i));
+			_res[_i] = std::to_string(_i);
 		}
 	}
 	else 
@@ -424,15 +424,17 @@ NerdCore::VAR __NERD_Object_Keys(NerdCore::VAR _var)
 		if(_var.type == NerdCore::Enum::Type::Object) _obj = &((NerdCore::Class::Object*)_var.data.ptr)->object;
 		
 		#ifndef __NERD__OBJECT_VECTOR
+		int _k = 0;
 		for (auto _el: *_obj)
 		{
-			_res["push"](_el.first);
+			_res[_k] = _el.first;
+			_k++;
 		}
 		#else
 		int _j = (*_obj).size();
 		for (int _k = 0; _k < _j; _k++)
 		{
-			_res["push"]((*_obj)[_k].first);
+			_res[_k] = (*_obj)[_k].first;
 		}
 		#endif
 	}
@@ -447,13 +449,18 @@ NerdCore::VAR __NERD_Object_Stringify(NerdCore::VAR _var)
 NerdCore::VAR __NERD_Object_Stringify(NerdCore::VAR _var, bool _bracket)
 {
 	NerdCore::Enum::Type _t = _var.type;
-
 	if (_t == NerdCore::Enum::Type::Number)
-		return NerdCore::VAR("\e[33m") + _var + "\e[0m";
+	{
+		return "\e[33m" + _var + "\e[0m";
+	}
 	else if (_t == NerdCore::Enum::Type::String)
-		return NerdCore::VAR("\e[32m'") + _var + "'\e[0m";
+	{
+		return "\e[32m'" + ((NerdCore::Class::String*)_var.data.ptr)->value + "'\e[0m";
+	}
 	else if (_t == NerdCore::Enum::Type::Function)
-		return NerdCore::VAR("'") + (std::string)(*(NerdCore::Class::Function*)_var.data.ptr) + "'";
+	{
+		return "'" + (std::string)(*(NerdCore::Class::Function*)_var.data.ptr) + "'";
+	}
 	else if (_t == NerdCore::Enum::Type::FixedArray)
 	{
 		NerdCore::VAR _res = "";
@@ -494,7 +501,7 @@ NerdCore::VAR __NERD_Object_Stringify(NerdCore::VAR _var, bool _bracket)
 	}
 	else if (_t == NerdCore::Enum::Type::Array)
 	{
-		NerdCore::VAR _res = "";
+		NerdCore::VAR _res = NerdCore::Global::var("");
 		NerdCore::Type::vector_t *_arr = &((NerdCore::Class::Array*)_var.data.ptr)->value;
 		if(_bracket) _res += " [ ";
 		int j = (*_arr).size();
@@ -511,7 +518,10 @@ NerdCore::VAR __NERD_Object_Stringify(NerdCore::VAR _var, bool _bracket)
 					_res += "\e[90m<" + std::to_string(k) + " empty items>\e[0m, ";
 				k = 0;
 			}
+
+			NerdCore::Global::var test = 
 			_res += __NERD_Object_Stringify((*_arr)[i], _bracket);
+			
 			l++;
 		}
 		if(k > 0)

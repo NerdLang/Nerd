@@ -1,7 +1,7 @@
 {
   "name": "http",
   "description": "Nerd http module",
-  "main": "index.js",
+  "main": "index.ng",
   "bugs":
   {
     "url": "https://github.com/Nerdlang/Nerd/issues"
@@ -15,8 +15,9 @@
   "keywords":
   [
     "nerd",
-    "js",
-	"javascript"
+    "nerdlang",
+	"http",
+	"web"
   ],
   "license": "MIT",
   "licenses": [

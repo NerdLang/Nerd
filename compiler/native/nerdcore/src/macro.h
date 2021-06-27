@@ -34,7 +34,7 @@
 #define __NERD_Create_FixedArray(_length) NerdCore::VAR(new NerdCore::Class::FixedArray(_length))
 #define __NERD_Create_Lambda(name) NerdCore::Type::function_t* name = new NerdCore::Type::function_t([](NerdCore::VAR* __NERD_VARARGS, int __NERD_VARLENGTH)
 #define __NERD_Create_Ptr_Scoped_Anon(__CONTENT__) new NerdCore::Type::function_t([&](NerdCore::VAR* __NERD_VARARGS, int __NERD_VARLENGTH){ __CONTENT__ })
-#define __NERD_Create_Ptr_Scoped_Copy_Anon(__CONTENT__) new NerdCore::Type::function_t([=](NerdCore::VAR* __NERD_VARARGS, int __NERD_VARLENGTH){ __CONTENT__ })
+#define __NERD_Create_Ptr_Scoped_Copy_Anon(__CONTENT__) new NerdCore::Type::function_t([=](NerdCore::VAR* __NERD_VARARGS, int __NERD_VARLENGTH) -> NerdCore::Global::var { __CONTENT__ })
 #define __NERD_Create_Ptr_Unscoped_Anon(__CONTENT__) new NerdCore::Type::function_t([](NerdCore::VAR* __NERD_VARARGS, int __NERD_VARLENGTH){ __CONTENT__ })
 #define __NERD_Create_Var_Scoped_Anon(__CONTENT__) NerdCore::VAR(NerdCore::Enum::Type::Function, __NERD_Create_Ptr_Scoped_Anon(__CONTENT__))
 #define __NERD_Create_Var_Unscoped_Anon(__CONTENT__) NerdCore::VAR(NerdCore::Enum::Type::Function, __NERD_Create_Ptr_Unscoped_Anon(__CONTENT__))

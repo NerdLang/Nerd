@@ -308,8 +308,8 @@ namespace NerdCore
 	{
 		return __NERD_Concat_To_Str((std::string)*this, _v1);
 	}
-	/*
-	inline VAR& VAR::operator+=(const VAR &_v1)
+	
+	VAR& VAR::operator+=(const VAR &_v1)
 	{
 		if(type < NerdCore::Enum::Type::String)
 		{
@@ -329,7 +329,7 @@ namespace NerdCore
 		}
 		return *this;
 	}
-	*/
+	
 	VAR VAR::operator-(const VAR &_v1)
 	{	
 		if (type < NerdCore::Enum::Type::String ) return data.number - _v1;
