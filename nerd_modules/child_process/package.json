@@ -1,7 +1,7 @@
 {
-  "name": "fs",
-  "description": "Nerd Standard FS module",
-  "main": "index.ng",
+  "name": "child_process",
+  "description": "Nerd base child process module",
+  "main": "index.nf",
   "bugs":
   {
     "url": "https://github.com/Nerdlang/Nerd/issues"
@@ -14,10 +14,11 @@
   "homepage": "https://github.com/Nerdlang/Nerd#readme",
   "keywords":
   [
+    "nerdlang",
     "nerd",
-	"nerdlang",
-    "fs",
-	"filesystem"
+    "child_process",
+    "exec",
+    "spawn"
   ],
   "license": "MIT",
   "licenses": [
@@ -29,10 +30,10 @@
   "repository":
   {
     "type": "git",
-    "url": "git+ssh://git@github.com/Nerd/nectarjs.git"
+    "url": "git+ssh://git@github.com/Nerdlang/Nerd.git"
   },
   "version": "0.0.1",
-  "nerd":
+  "nectar":
   {
     "env": ["std", "wasm"]
   }

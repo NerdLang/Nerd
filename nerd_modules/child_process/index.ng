@@ -21,43 +21,46 @@
 
 */
 
-var console = {};
+var child_process = {};
 
-console.log = function()
+child_process.exec = function(_cmd)
 {
-	var _args = arguments();
-	for(var i = 0; i < length_of(_args); i++)
-	{
-		if(i > 0)
-		{
-			{{
-				std::cout << " ";
-			}}
-		}
-		{{
-			std::cout << _args[i];
-		}}
-	}
 	{{
-		std::cout << std::endl;
+		FILE *fp;
+		const int pSize = 64;
+		int bSize = pSize;
+		int now = 0;
+		char* buffer = (char*)malloc(pSize * sizeof(char));
+
+		buffer[0] = 0;
+		char pChar[pSize];
+
+		fp = popen(((std::string)_cmd).c_str(), "r");
+
+		if (fp == NULL)
+		{
+			printf("Failed to run command\n" );
+			return var();
+		}
+
+		while (fgets(pChar, sizeof(pChar), fp) != NULL)
+		{
+			now += strlen(pChar);
+			if(now > bSize)
+			{
+			  bSize += (now) * 1.5;
+			  buffer = (char*)realloc(buffer, bSize);
+			}
+			strcat(buffer, pChar);
+		}
+
+		pclose(fp);
+
+		var _return = buffer;
+		free(buffer);
+		return _return;
 	}}
 };
+child_process.execSync = child_process.exec;
 
-console.write = function()
-{
-	var _args = arguments();
-	for(var i = 0; i < length_of(_args); i++)
-	{
-		if(i > 0)
-		{
-			{{
-				std::cout << " ";
-			}}
-		}
-		{{
-			std::cout << _args[i];
-		}}
-	}
-};
-
-return console;
+return child_process;
