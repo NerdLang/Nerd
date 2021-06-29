@@ -146,7 +146,7 @@ You can emulate classes and OOP by creating a function returning an object conta
 ```
 var _aHuman = function(_name, _age)
 {
-	var this = 
+	var thisScope = 
 	{
 		name: _name,
 		age: _age,
@@ -155,12 +155,12 @@ var _aHuman = function(_name, _age)
 
 	var _addYear = function()
 	{
-		this.age++;
+		thisScope.age++;
 	}
 
 	var _changeName = function(_name)
 	{
-		this.name = _name;
+		thisScope.name = _name;
 	}
   
 	var toReturn =
