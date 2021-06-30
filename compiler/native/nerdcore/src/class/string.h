@@ -118,29 +118,76 @@ namespace NerdCore::Class
 	{
 		return NerdCore::Global::null;
 	}
-	static NerdCore::VAR _char;
-	static NerdCore::VAR _length;
 		
 	#ifndef __NERD__OBJECT_VECTOR
+	
+	static NerdCore::Global::var _char;
+	
 	NerdCore::VAR &String::operator[](NerdCore::VAR key)
 	{
-		return NerdCore::Global::null;
+		if(key.type != NerdCore::Enum::Type::Number)
+		{
+			return NerdCore::Global::null;
+		}
+		else
+		{
+			if((int)key > value.size() - 1)
+			{
+				return NerdCore::Global::null;
+			}
+			else
+			{
+				_char = std::string(1, value[(int)key]);
+				return _char;
+			}
+		}
 	}
 	#else
 	NerdCore::VAR &String::operator[](NerdCore::VAR key)
 	{		
-		return NerdCore::Global::null;
+		if(key.type != NerdCore::Enum::Type::Number)
+		{
+			return NerdCore::Global::null;
+		}
+		else
+		{
+			if((int)key > value.size() - 1)
+			{
+				return NerdCore::Global::null;
+			}
+			else
+			{
+				_char = std::string(1, value[(int)key]);
+				return _char;
+			}
+		}
 	}
 	#endif
 	
 	NerdCore::VAR &String::operator[](int key)
 	{		
-		return NerdCore::Global::null;
+		if(key > value.size() - 1)
+		{
+			return NerdCore::Global::null;
+		}
+		else
+		{
+			_char = std::string(1, value[key]);
+			return _char;
+		}
 	}
 	
 	NerdCore::VAR &String::operator[](double key)
 	{		
-		return NerdCore::Global::null;
+		if(key > value.size() - 1)
+		{
+			return NerdCore::Global::null;
+		}
+		else
+		{
+			_char = std::string(1, value[key]);
+			return _char;
+		}
 	}
 
 	
