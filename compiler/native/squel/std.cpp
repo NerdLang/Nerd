@@ -52,9 +52,22 @@ int main(int __NERD_VARLENGTH, char* __Nerd_Argv[])
 		__NERD_VARARGS[i] = __Nerd_Argv[i];
 	}
 
-
-	{INIT}
-
-	{CODE}
+	try 
+	{
+		{INIT}
+		
+		#ifdef __NERD_INIT_RAND_SEED
+		srand (time(NULL));
+		#endif
+		
+		{
+			{CODE}
+		}
+	}
+	catch(NerdCore::VAR __NERD_Global_Exception)
+	{
+		__NERD_Log_Console(__NERD_Global_Exception);
+		exit(1);
+	}
 	return 0;
 }

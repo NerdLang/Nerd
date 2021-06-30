@@ -6,21 +6,19 @@
  
  var __NERD_ENV = "wasm";
  var __NERD_PLATFORM = "{{__PLATFORM__}}";
- 
- #define __NERD_Create_Object() new NerdCore::Class::Object()
- #define __NERD_Create_Array(_arr) new NerdCore::Class::Array(_arr)
- #define __NERD_InitVar() NerdCore::VAR()
+ NerdCore::Global::var __NERD_ARGS = new NerdCore::Class::Array();
+
  {INCLUDE}
  
  {DECL}
 
-int main(int argc, char* argv[])
+int main(int __NERD_VARLENGTH, char* __Nerd_Argv[])
 {
-	var __NERD_ARGS = __NERD_Create_Array();
-	
-	for( int i = 0; i < argc; i++)
+	NerdCore::VAR __NERD_VARARGS[__NERD_VARLENGTH];
+	for( int i = 0; i < __NERD_VARLENGTH; i++)
 	{
-		__NERD_ARGS[i] = argv[i];
+		__NERD_ARGS[i] = __Nerd_Argv[i];
+		__NERD_VARARGS[i] = __Nerd_Argv[i];
 	}
 
 	try 
@@ -31,10 +29,9 @@ int main(int argc, char* argv[])
 		#ifdef __NERD_INIT_RAND_SEED
 		srand (time(NULL));
 		#endif
+		
 		{
 			{CODE}
-
-			NerdCore::Event::Loop();
 		}
 		
 	}
