@@ -20,7 +20,19 @@
 	SOFTWARE.
 
 */
+#pragma once
 
-var process = {};
+#include <emscripten.h>
+#include <emscripten/bind.h>
 
-return process;
+NerdCore::Type::object_t __NERD_WASM_INTERNAL_BIND;
+
+std::string __NERD_EM_BIND(std::string _name, std::string _data) 
+{
+	return __NERD_WASM_INTERNAL_BIND[(std::string)_name](_data);
+}
+
+EMSCRIPTEN_BINDINGS(nerd_module) 
+{
+	emscripten::function("call", &__NERD_EM_BIND);
+}

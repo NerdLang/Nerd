@@ -1,6 +1,6 @@
 {
   "name": "nerdlang",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "NerdLang. Simple yet efficient.",
   "main": "nerd",
   "bin": {

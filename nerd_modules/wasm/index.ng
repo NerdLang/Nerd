@@ -20,7 +20,24 @@
 	SOFTWARE.
 
 */
+include("lib/wasm.hpp");
+include("<emscripten.h>");
+include("<emscripten/bind.h>");
 
-var process = {};
+var wasm = {};
 
-return process;
+wasm.run = function(_script)
+{
+	{{
+		emscripten_run_script(((std::string)_script).c_str());
+	}}
+};
+
+wasm.bind = function(_name, _obj)
+{
+	{{
+		__NERD_WASM_INTERNAL_BIND[_name] = _obj;
+	}}
+};
+
+return wasm;

@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <script>
+    var Module = {};
+	
+	function WasmLoaded()
+	{
+		console.log(Module.call("callFromNerd", "Hello From Nerd !"));	
+	}
+  </script>
+  <script src="wasm_binding.asm.js"></script>
+</html>

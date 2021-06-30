@@ -119,9 +119,9 @@ namespace NerdCore::Class
 		return NerdCore::Global::null;
 	}
 		
+	static NerdCore::Global::var _char = "";	
+		
 	#ifndef __NERD__OBJECT_VECTOR
-	
-	static NerdCore::Global::var _char;
 	
 	NerdCore::VAR &String::operator[](NerdCore::VAR key)
 	{
