@@ -146,29 +146,29 @@ You can emulate classes and OOP by creating a function returning an object conta
 ```
 var _aHuman = function(_name, _age)
 {
-	var this = 
-  {
-    name: _name,
+	var thisScope = 
+	{
+		name: _name,
 		age: _age,
-    _pi: 3.14116, // constant property
-  };
-  
-  var _addYear = function()
-  {
-    this.age++;
-  }
-  
-  var _changeName = function(_name)
-  {
-    this.name = _name;
-  }
+		_pi: 3.14116, // constant property
+	};
+
+	var _addYear = function()
+	{
+		thisScope.age++;
+	}
+
+	var _changeName = function(_name)
+	{
+		thisScope.name = _name;
+	}
   
 	var toReturn =
 	{
 		addYear: _addYear,
 		changeName: _changeName,
 	};
-	return value;
+	return toReturn;
 }
 
 var _me = _aHuman("John Doe", 40);
